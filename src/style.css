@@ -1,0 +1,77 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: #f4f4f4; color: #1d1d1f; font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; }
+.window { width: min(860px, 94vw); margin: 18px auto; padding: 20px 22px 18px; background: #fafafa; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 6px 22px rgba(0,0,0,.09); }
+header { text-align: center; padding: 2px 0 16px; }
+h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: .1px; }
+header p { margin: 0; font-size: 13px; color: #555; }
+.group { border: 1px solid #d7d7d7; background: #fff; border-radius: 7px; padding: 13px; margin-bottom: 10px; }
+.group > label, .option-row label, .filename-row label { display: block; font-weight: 600; margin-bottom: 5px; }
+.url-row { display: flex; gap: 8px; }
+input, select { height: 36px; border: 1px solid #aaa; border-radius: 5px; background: white; font-size: 13px; padding: 0 9px; }
+input { flex: 1; min-width: 0; }
+button { height: 36px; border: 1px solid #aaa; border-radius: 5px; background: #f5f5f5; padding: 0 16px; font-size: 13px; cursor: pointer; transition: background .15s ease, transform .1s ease, box-shadow .15s ease; }
+button:active:not(:disabled) { transform: scale(.97); }
+input, select { transition: border-color .15s ease, box-shadow .15s ease; }
+input:focus, select:focus { outline: none; border-color: #4c8bf5; box-shadow: 0 0 0 3px rgba(76,139,245,.2); }
+button:focus-visible { outline: 2px solid #4c8bf5; outline-offset: 2px; }
+button:hover { background: #e9e9e9; } button:disabled { opacity: .55; cursor: default; }
+.options h2, .history-head h2 { margin: -1px 0 12px; font-size: 16px; }
+.option-row { display: flex; gap: 42px; }
+.option-row > div { display: flex; align-items: center; gap: 10px; }
+.option-row label { margin: 0; min-width: 42px; }
+select { min-width: 150px; }
+.filename-row { margin-top: 12px; display: grid; grid-template-columns: 82px 1fr; align-items: center; gap: 10px; }
+.filename-row label { margin: 0; }
+.video-preview.show { animation: fadeUp .35s ease both; }
+.video-preview[hidden] { display: none; }
+.video-preview { display: flex; gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; }
+.video-preview img { width: 180px; height: 101px; object-fit: cover; object-position: center; border-radius: 7px; background: #eee; border: 1px solid #ddd; display: block; }
+.preview-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; justify-content: center; }
+.preview-text strong { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.preview-text span { color: #666; }
+.progress-area { margin: 14px 0 10px; }
+.progress-track { height: 16px; border: 1px solid #c9c9c9; background: #e7e7e7; border-radius: 8px; overflow: hidden; }
+#progress { width: 0%; height: 100%; background-color: #4c8bf5; border-radius: 8px; transition: width .3s ease, background-color .3s ease; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; font-weight: 600; white-space: nowrap; overflow: hidden; }
+/* Moving stripes while a download is running; frozen while paused. */
+.progress-track[data-state="working"] #progress,
+.progress-track[data-state="paused"] #progress {
+  background-image: linear-gradient(45deg, rgba(255,255,255,.22) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.22) 50%, rgba(255,255,255,.22) 75%, transparent 75%);
+  background-size: 22px 22px;
+  animation: stripes 0.9s linear infinite;
+}
+.progress-track[data-state="paused"] #progress { background-color: #e0a100; animation-play-state: paused; }
+.progress-track[data-state="done"] #progress { background-color: #2f9e57; }
+.progress-track[data-state="error"] #progress { background-color: #d64545; }
+@keyframes stripes { from { background-position: 0 0; } to { background-position: 22px 0; } }
+#status { margin-top: 7px; min-height: 18px; font-size: 12px; color: #333; }
+#status.working::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 7px; vertical-align: -1px; border: 2px solid #c5d6f7; border-top-color: #4c8bf5; border-radius: 50%; animation: spin .7s linear infinite; }
+#error { min-height: 18px; font-size: 12px; color: #a00; }
+#error:not(:empty) { animation: shake .35s ease; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+.actions { display: flex; gap: 7px; justify-content: flex-end; }
+.download { min-width: 150px; font-weight: 600; }
+.download:not(:disabled) { background: #4c8bf5; border-color: #3a74d8; color: #fff; }
+.download:not(:disabled):hover { background: #3a74d8; box-shadow: 0 2px 8px rgba(76,139,245,.4); }
+.secondary { min-width: 85px; }
+.history-section { margin-top: 14px; border-top: 1px solid #ddd; padding-top: 12px; }
+.history-head { display: flex; justify-content: space-between; align-items: center; }
+.small-btn { height: 30px; padding: 0 10px; font-size: 12px; }
+.history-list { display: flex; flex-direction: column; gap: 6px; max-height: 180px; overflow: auto; }
+.history-item { animation: fadeUp .3s ease both; display: flex; justify-content: space-between; gap: 10px; padding: 8px 9px; background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; }
+.history-main { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.history-main strong, .history-main small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 560px; }
+.history-main span, .history-main small { color: #666; font-size: 11px; }
+.history-actions { display: flex; gap: 5px; align-items: center; flex-shrink: 0; }
+.history-actions button { height: 29px; padding: 0 9px; font-size: 11px; }
+.empty-history { padding: 12px; text-align: center; color: #777; background: #fff; border: 1px dashed #ccc; border-radius: 6px; }
+footer { display: flex; justify-content: space-between; margin-top: 10px; color: #777; font-size: 10px; }
+@media (max-width: 650px) { .option-row { flex-direction: column; gap: 10px; } .url-row { flex-direction: column; } .filename-row { grid-template-columns: 1fr; gap: 5px; } h1 { font-size: 24px; } .history-item { flex-direction: column; } }
+
+@media (max-width: 650px) { .video-preview img { width: 145px; height: 82px; } }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,57 @@
+{
+  "name": "ttr-video-downloader",
+  "version": "1.1.2",
+  "description": "TTR Video Downloader for Windows with yt-dlp downloads, thumbnail preview, progress, cancel/resume support.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "prepare-bin": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts\\prepare-bin.ps1",
+    "build": "npm run prepare-bin && electron-builder --win nsis"
+  },
+  "author": "TTR",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^38.1.2",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.ttr.videodownloader",
+    "productName": "TTR Video Downloader",
+    "asar": true,
+    "files": [
+      "src/**/*",
+      "package.json",
+      "LICENSE"
+    ],
+    "extraResources": [
+      {
+        "from": "bin",
+        "to": "bin",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "TTR-Video-Downloader-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "TTR Video Downloader",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self'; script-src 'self'">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TTR Video Downloader</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="window">
+    <header>
+      <h1>TTR Video Downloader</h1>
+      <p>Download videos/audio that you have permission to download.</p>
+    </header>
+
+    <section class="group">
+      <label for="url">Video URL</label>
+      <div class="url-row">
+        <input id="url" placeholder="Paste video URL here..." autocomplete="off">
+        <button id="paste">Paste</button>
+      </div>
+      <div class="video-preview" id="preview" hidden>
+        <img id="thumbnail" alt="Video thumbnail">
+        <div class="preview-text">
+          <strong id="video-title"></strong>
+          <span id="video-uploader"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="group options">
+      <h2>Download Options</h2>
+      <div class="option-row">
+        <div>
+          <label for="type">Type</label>
+          <select id="type">
+            <option>MP4 Video</option>
+            <option>MP3 Audio</option>
+          </select>
+        </div>
+        <div id="quality-wrap">
+          <label for="quality">Quality</label>
+          <select id="quality">
+            <option>Best</option>
+            <option>1080p</option>
+            <option selected>720p</option>
+            <option>480p</option>
+            <option>360p</option>
+          </select>
+        </div>
+      </div>
+      <div class="filename-row">
+        <label for="file-name">File name</label>
+        <input id="file-name" placeholder="Auto: title [id]">
+      </div>
+    </section>
+
+    <section class="group">
+      <label for="folder">Save Folder</label>
+      <div class="url-row">
+        <input id="folder" readonly>
+        <button id="browse">Browse</button>
+      </div>
+    </section>
+
+    <section class="progress-area">
+      <div class="progress-track" id="track" data-state="idle">
+        <div id="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      </div>
+      <div id="status" role="status" aria-live="polite">Ready.</div>
+      <div id="error" role="alert"></div>
+    </section>
+
+    <div class="actions">
+      <button id="pause" class="secondary" disabled>Pause</button>
+      <button id="cancel" class="secondary" disabled>Cancel</button>
+      <button id="download" class="download">↓ Download</button>
+    </div>
+
+    <section class="history-section">
+      <div class="history-head">
+        <h2>Download History</h2>
+        <button id="clear-history" class="small-btn">Clear</button>
+      </div>
+      <div id="history" class="history-list"></div>
+    </section>
+
+    <footer>
+      <span>v1.1.2</span>
+    </footer>
+  </main>
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+Optional: place yt-dlp.exe and ffmpeg.exe in this folder for portable use.
